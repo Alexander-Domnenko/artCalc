@@ -9,6 +9,8 @@ Button {
     property alias buttonWidth: backgroundRectangle.implicitWidth
     property alias buttonHeight: backgroundRectangle.implicitHeight
     property alias textSize: buttonText.font.pixelSize
+    property alias textStyle: buttonText.font.family
+    property alias horizontalAlign: buttonText.horizontalAlignment
 
     background: Rectangle {
         id: backgroundRectangle

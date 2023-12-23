@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Projects list.qml</file>
+        <file>Calculate.qml</file>
+        <file>Statistics.qml</file>
+        <file>My_clients.qml</file>
+        <file>My_portfolios.qml</file>
+        <file>Cig_calendar.qml</file>
+        <file>Settings.qml</file>
+        <file>About_ArtCalc.qml</file>
+        <file>Logout.qml</file>
+        <file>Page_header.qml</file>
+        <file>RowComponent.qml</file>
+        <file>ProfileComp.qml</file>
+    </qresource>
+</RCC>

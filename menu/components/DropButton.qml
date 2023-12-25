@@ -1,6 +1,7 @@
-// CustomComboBox.qml
+// DropButton.qml
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 ComboBox {
     property alias comboBoxColor: customBackgroundRectangle.color
@@ -10,13 +11,9 @@ ComboBox {
     property alias comboBoxWidth: customBackgroundRectangle.width
     property alias comboBoxHeight: customBackgroundRectangle.height
     property alias textAlignOffset: customContentText.anchors.verticalCenterOffset
-
-    // Добавлено свойство для placeholder'а
-    property string placeholderText: "ВИД РАБОТЫ"
+    property alias customDisplayText: customContentText.text
 
     id: root
-
-    // Изначально ни один элемент не выбран
     currentIndex: -1
 
     delegate: ItemDelegate {
@@ -27,59 +24,39 @@ ComboBox {
             text: modelData
             color: root.textColor
             font.pixelSize: root.textSize
+            font.family: "Montserrat extrabold"
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignLeft
+            horizontalAlignment: Text.AlignHCenter
             elide: Text.ElideRight
-
-            // Добавлено ограничение максимальной ширины текста
             width: Math.min(root.width - 20, implicitWidth)
         }
 
         background: Rectangle {
             width: parent.width
             height: parent.height
-            color: index === root.currentIndex ? "#3DD9A1" : root.palette.base
+            color: index === root.currentIndex ? "#3DD9A1" : "#DEDEDE"
             radius: root.borderRadius
         }
     }
 
+    // Убран блок с индикатором
     indicator: Canvas {
-        id: canvas
-        x: root.width - width
-        y: (root.availableHeight - height) / 2.5
-        width: 12
-        height: 8
-        contextType: "2d"
-
-        Connections {
-            target: root
-            onPressedChanged: canvas.requestPaint()
-        }
-
-        onPaint: {
-            context.reset();
-            context.moveTo(0, 0);
-            context.lineTo(width, 0);
-            context.lineTo(width / 2, height);
-            context.closePath();
-            context.fillStyle = "black"
-            context.fill();
-        }
+        visible: false
     }
 
     contentItem: Item {
         width: root.background.width - root.indicator.width - 10
         height: root.background.height
 
-        // Изначально отображается "ВИД РАБОТЫ"
         Text {
             id: customContentText
             anchors {
                 centerIn: parent
-                verticalCenterOffset: -4 // Подстройка вертикального выравнивания
+                verticalCenterOffset: -1
             }
-            text: root.currentIndex !== -1 ? root.displayText : root.placeholderText
+            text: root.currentIndex !== -1 ? root.customDisplayText : "ВИД РАБОТЫ"
             font.pixelSize: root.textSize
+            font.family: "Montserrat extrabold"
             color: root.textColor
         }
     }
@@ -110,9 +87,14 @@ ComboBox {
         }
 
         background: Rectangle {
-            color: root.palette.base
+            color: "#DEDEDE"
             radius: root.borderRadius
             clip: true
         }
     }
+    Layout.alignment: Qt.AlignHCenter
+    Layout.preferredWidth: parent.width - 20
 }
+
+
+
